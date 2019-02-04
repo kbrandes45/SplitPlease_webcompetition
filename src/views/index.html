@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel='stylesheet' href='static/css/style.css'>
+<html>
+    <head>
+        <title>Splitplease</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom">
+            <a class="navbar-brand" href="/"><strong>Splitplease</strong></a>
+            <div class="navbar-nav" id="nav-item-container">
+            <!-- navbar stuff inserted here -->
+            </div>
+        </nav>
+
+        <div class="container" id="start-row-container">
+            <!-- order button and search bar inserted here -->
+
+        </div>
+
+        <div class="row">
+            <div id="orders" class="col">
+                <!-- orders inserted here -->
+            </div>
+        </div>
+        <!-- https://stackoverflow.com/questions/20111219/bootstrap-modals-how-to-open-with-onclick -->
+        <div class="modal fade" id="loggedOutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Login Required</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class = "container">
+                             <p> Welcome to <b>Splitplease</b>! To begin making bulk orders and claiming shares of existing orders, please log in with your Kerberos. </p>      
+                        </div>  
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn-sp btn btn-secondary" href="/auth/mitopenid">Log in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="modal fade" id="noLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Missing Location</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class = "container">
+                             Please set your location before starting an order. This can be done from your profile page. Your location should be the building you live in.      
+                        </div>  
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn-sp btn btn-secondary" href="/">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="loggedInModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><strong>New Order</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class = "container">
+                             <div class ="row" id = "orderform-content">
+                                <!-- Input Bars: https://www.w3schools.com/html/html_forms.asp -->
+                                <h4> Item: <input id= "Input_type" type = "text" placeholder = " e.g., kazoos">  </h4>
+                                <h4> Link: <input id="Input_link" type = "link"></h4>
+                                <h4> Order Quantity: <input id= "Input_quantity" type = "number" min = 0 placeholder = " e.g., 20"></h4>
+                                <h4> Quantity's Units: <input id = "Input_units" type="text" placeholder = " e.g., pounds, shirts, bottles..."></h4>
+                                <h4> Expiration Date:* <input id = "Input_date" type="date"></h4>
+                                <p> *The date by which you would like to place the order.</p>
+
+                             </div>       
+                        </div>  
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-sp btn btn-secondary" data-dismiss="modal" onclick = "window.location.reload();">Close</button>
+                        
+
+                        <button type="button" class="btn-sp btn btn-primary" id = "saveButt" onclick = "dumbFnc2()">Save changes</button>
+                        <script type = "text/javascript">
+                            function dumbFnc2() {
+                                  const newOrderItem = document.getElementById('Input_type');
+                                  const newOrderLink = document.getElementById('Input_link');
+                                  const newOrderQuantity = document.getElementById('Input_quantity');
+                                  const newOrderUnits = document.getElementById('Input_units');
+                                  const newDate = document.getElementById('Input_date');
+
+                                  var today = new Date();
+                                  var dd = today.getDate();
+                                  var mm =today.getMonth()+1;
+                                  var yyyy = today.getFullYear();
+
+                                  if (dd<10){ dd = '0'+dd;}
+                                  if (mm<10) { mm='0'+mm;}
+                                  today = yyyy+'-'+mm+'-'+dd;
+
+
+                                  
+                                  if (newOrderItem.value === "") { alert("Please enter an item"); }
+                                  else if (newOrderQuantity.value === "") { alert("Please enter a quantity"); }
+                                  else if (newOrderUnits.value === "") { alert("Please enter units"); }
+                                  else if (newDate.value === "") { alert("Please enter an expiration date"); }
+
+                                  else {
+                                      const coolDate = newDate.value.substr(0,10);
+
+                                      const data = {
+                                        item: newOrderItem.value.toLowerCase(),
+                                        link: cleanLink(newOrderLink.value.toLowerCase()),
+                                        quantity: newOrderQuantity.value,
+                                        units: newOrderUnits.value.toLowerCase(),
+                                        remaining: newOrderQuantity.value,
+                                        completed: false,
+                                        expDate : coolDate,
+                                        startDate: today,
+                                      }
+                                      post('/api/orders', data);
+                                      window.location.reload();                                    
+                                  }
+
+
+
+                            };
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="searchResultsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-card" role="document">
+                <div class="modal-content">
+                    <div class="modal-header card-header-title">
+                        <h5 class="modal-title" id="exampleModalLabel">Search Results</h5>
+                        <button  type="button" class="close" data-dismiss="modal" onclick = "window.location.reload();" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class = "card-content clearfix">
+                            <div class = "container" id = "search-results">
+                                <!-- Search Results here -->
+                            </div>  
+                            <div class = "container" id = "input_claim">
+                                <script type="text/javascript">
+                                    const searchy = document.getElementById('search-results').innerHTML.toLowerCase();
+                                    if (searchy) {
+                                        const noRes = document.createElement('p');
+                                        noRes.innerText = "There are no current orders for this search."
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-sp btn btn-secondary" data-dismiss="modal" onclick = "window.location.reload();">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src='static/js/api.js'></script>
+    
+    <script src='static/js/navbar.js'></script>
+    <script src='static/js/feed.js'></script>
+    <script src='static/js/index.js'></script>
+
+</html>

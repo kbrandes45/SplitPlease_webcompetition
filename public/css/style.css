@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css?family=Yantramanav:300,600');
+
+body {
+    font-family: 'Yantramanav';
+    color: black;
+}
+
+h1 {
+    padding: 10px;
+    font-size: 40px;
+}
+
+h5 {
+    padding: 5px;
+    font-size: 25px;
+    font-weight: 30;
+}
+
+p {
+    font-weight: 20;
+    padding: 5px;
+}
+
+a{
+    color : #4682b4;
+}
+
+.btn-sp{
+    background: -webkit-linear-gradient(top, #33cccc 0%,#33cccc 44%,#2eb8b8 100%);
+    border-style: none;
+    font-color: white;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    background-color: #29a3a3;
+    border-color: #33cccc;
+}
+
+
+.bg-primary-custom{
+    background: -webkit-linear-gradient(top, #33cccc 0%,#33cccc 44%,#2eb8b8 100%);
+}
+
+.nav-item{
+    color: black !important;
+    font-size: 1.1rem;
+}
+
+.navbar-brand{
+    font-size: 1.6rem;
+}
+
+.input-group{
+    width: 600px;
+    height: 50px;
+    margin-left: 20px;
+}
+
+.split-card{
+    width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    box-shadow: 2px 2px #f1f1f1;
+
+}
+
+.split-item{
+    font-weight: 900;
+    font-size: 24px;
+}
+
+.split-link{
+    font-size: 24px;
+}
+
+.split-creator{
+    font-size: 18px;
+}
+
+.orders-box{
+    border-style: solid;
+    border-width: 1px;
+    min-height: 0px;
+    max-height: 200px;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.order-manage-btns{
+    margin-left: auto;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#newOButton{
+    height: 50px;
+    margin-top: 48px;
+    font-size: 18px;
+    background: -webkit-linear-gradient(top, #33cccc 0%,#33cccc 44%,#2eb8b8 100%);
+
+}
+
+#Input_loc{
+    font-size: 14pt;
+}
+
+#claimButtonK{
+    margin-right: 20px;
+    height      : 50px;
+    color : #ffffff;
+}
+
+#availSpans{
+    margin-top: 6px;
+    font-size : 18pt;
+}
+
+#extraShit{
+    color : #808080;
+}
+
+#extraShit2{
+    color : #808080;
+}
+
+#placeO{
+    color: #ffffff;
+    background: -webkit-linear-gradient(top, #33cccc 0%,#33cccc 44%,#2eb8b8 100%);
+    border-style: none;
+    float  : right;
+
+}
+
+#cancelO{
+    color: #ffffff;
+    background: -webkit-linear-gradient(top, #5246a0 0%,#5246a0 44%,#483d8b 100%);
+    border-style: none;
+    float: right;
+        margin-left: 10px;
+}
+
+#profCards{
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+#OrderyTitle{
+    font-weight : 900;
+}
+
+#aboutContainer{
+    margin-top: 60px;
+}
+
+.about-para{
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-bottom: 40px;
+    text-align: left;
+    text-indent: 20px;
+    font-size: 18px;
+}
+
+.left-list{
+    list-style-position: inside;
+}
+
+::-webkit-input-placeholder {
+  font-size: 16px;
+}
+
+.tutorial-image{
+    margin: 20px;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 5px;
+}
+

@@ -1,0 +1,15 @@
+[{
+    "_id": "5a53b37189c7bb15141e9e40",
+    "item_name": "Kazoos", 
+    "quantity": 50,
+    "creator_name": "Ben Bitdiddle",
+    "distance": 1
+},
+{
+    "_id": "5a53b37189c7bb15141e9e41",
+    "item_name": "Human spleens",
+    "quantity": 4,
+    "creator_name": "Alyssa P. Hacker",
+    "distance": 0.75
+}
+]

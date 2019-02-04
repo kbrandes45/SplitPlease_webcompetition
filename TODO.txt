@@ -1,0 +1,9 @@
+TODO
+
+-Search option to sort by closest location
+-Dropdown menu for where you live
+-Search option to show completed orders
+-Implement Socket
+-Add intro/tutorial
+-Add email and screenshots to "How it works" section
+-Option for staying anonymous except to others in the order

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Profile Page</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom">
+      <a class="navbar-brand" href="/"><strong>Splitplease</strong></a>
+      <div class="navbar-nav" id="nav-item-container">
+      <!-- navbar stuff inserted here -->
+      </div>
+    </nav>
+    <div class="container text-center" id="profile-container">
+      <hr>
+      <div id="name-container">
+        <!-- name inserted here -->
+      </div>
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+        </div>
+      </nav>
+      
+
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="row mt-4">
+        <div class="col-4" id="location-data">
+          <h4>Location</h4>
+          <br>
+          <div class="text" id="location">
+            <!-- location inserted here -->
+          </div>
+        </div>
+        <div class="col-4">
+          <h4>Previous Orders</h4>
+          <br>
+          <div class="orders-box">
+            <div class="card">
+              <ul class="list-group list-group-flush" id="latest-orders-card">
+                <!-- recent orders inserted here -->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <h4>Contact Information</h4>
+          <br>
+          <div class="text" id="profile-contact">
+            <!-- contact info inserted here -->
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="tab-pane fade" id="nav-orders" role="tabpanel" aria-labelledby="nav-orders-tab">
+          <!-- add all the active orders and make them manageable -->
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="editLocModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Location</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class = "container">
+                             <div class ="row" id = "orderform-content">
+                                <div class="col">
+                                  <h4>
+                                    <select class="custom-select" id="Input_loc" onchange="showField(this.options[this.selectedIndex].value)">
+                                      <option selected>Choose...</option>
+                                        <!-- options inserted here -->
+                                    </select>
+                                  </h4>
+                                </div>
+                                <div class="col">
+                                  <div id='other-specify-box'></div>
+                                </div>
+                             </div>       
+                        </div>  
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-sp btn btn-secondary" data-dismiss="modal" onclick = "window.location.reload();">Close</button>
+                        
+
+                        <button type="button" class="btn-sp btn btn-primary" id = "saveButt" onclick = "dumbFnc2()" data-dismiss = "modal">Update Location</button>
+                        <script type = "text/javascript">
+                            function dumbFnc2() {
+                                  const newLoc = document.getElementById('Input_loc');
+                                  if (newLoc.value === "") { alert("Incomplete"); }
+                                  if (newLoc.value === "Other") {
+                                    document.getElementById('other-option').setAttribute('value', document.getElementById('other-specify').value);
+                                  }
+                                  const data = {
+                                    location: newLoc.value
+                                  }
+                                  const locData = window.document.getElementById('location');
+                                  locData.innerText = newLoc.value;
+                                  document.getElementById('other-option').setAttribute('value', 'Other');
+                                  post('/api/location', data);
+                            };
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="placeOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Place Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class = "container">
+                             <p> Are you sure you want to place this order? It will be closed and no one else will be able to place claims on it. Additionally, everyone who placed a claim will be notified through email that the order has been placed.</p>      
+                        </div>  
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn-sp btn btn-secondary" data-dismiss="modal" id="cancel-btn-1">Cancel</a>
+                        <a class="btn-sp btn btn-secondary" data-dismiss="modal" id="order-btn">Place Order</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="cancelOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class = "container">
+                             <p> Are you sure you want to delete this order? It will be permanently removed. Additionally, everyone who placed a claim will be notified through email that the order has been deleted.</p>      
+                        </div>  
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn-sp btn btn-secondary" data-dismiss="modal" id="cancel-btn-2">Cancel</a>
+                        <a class="btn-sp btn btn-secondary" data-dismiss="modal" id="delete-btn">Delete Order</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="/static/js/api.js"></script>
+  <script src="/static/js/navbar.js"></script>
+  <script src="/static/js/profile.js"></script>
+  <script>
+    //The following code is based on a code snippet from w3schools.com
+    var $placedOrder;
+    $('#placeOrderModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      placedOrder = button.data('id') // Extract info from data-* attributes
+    });
+    $('#placeOrderModal .modal-footer a').on('click', function(event) {
+      var $button = $(event.target);
+      $(this).closest('.modal').one('hidden.bs.modal', function() {
+        if ($button[0].id === 'order-btn') {
+          placeOrder(placedOrder);
+        }
+      });
+    });
+  </script>
+  <script>
+    //The following code is based on a code snippet from w3schools.com
+    var $canceledOrder;
+    $('#cancelOrderModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      canceledOrder = button.data('id') // Extract info from data-* attributes
+    });
+    $('#cancelOrderModal .modal-footer a').on('click', function(event) {
+      var $button = $(event.target);
+      $(this).closest('.modal').one('hidden.bs.modal', function() {
+        if ($button[0].id === 'delete-btn') {
+          cancelOrder(canceledOrder);
+        }
+      });
+    });
+  </script>
+</html>

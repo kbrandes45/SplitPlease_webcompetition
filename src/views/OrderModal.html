@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<html>
+	<head>
+		<title>Order Form </title>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom">
+            <div class="navbar-brand" href="#"><strong>Splitplease</strong></div>
+            <div class="navbar-nav" id="nav-item-container">
+            <!-- navbar stuff inserted here -->
+            </div>
+        </nav>
+		<p> i hate web dev </p>
+		<div class = "container">
+             <div class ="row" id = "orderform-content">
+             	<h4> Order: <input id= "Input_type" type = "text">  </h4>
+             	<h4> Order Quanity: <input id= "Input_quantity" type = "number"></h4>
+             	<h4> Order Quantity's Units: <input id = "Input_units" type="text"></h4>
+             </div>       
+        </div>  
+        <button id = "complete-btn" onclick= "OrderSaver()"> Complete Order</button>
+        <script type = "text/javascript">
+        	function OrderSaver() {
+        		const iType = document.getElementById("Input_type").value;
+        		const iQuantity = document.getElementById("Input_quantity").value;
+        		const iUnit = document.getElementById("Input_units").value;
+        		const user = document.getElementById()
+        		if (iType.length === 0) { alert("Incomplete"); }
+
+        		else if (iQuantity.length===0) { alert("Incomplete"); }
+
+        		else if (iUnit.length === 0) { alert("Incomplete"); }
+
+        		else {
+        			const Order = require('../models/order.js');
+        			const myOrder = new Order({
+        				item: iType,
+        				quantity: iQuantity,
+        				units: iUnit,
+        				creator_name: "Hi"
+        				creator_id: "there"
+        			});
+
+        		};
+        	}
+        </script>
+	</body>
+	<script src='static/js/navbar.js'></script>
+    <script src='static/js/index.js'></script>
+    <script src = 'static/js/orderform.js'></script>
+</html>

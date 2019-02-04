@@ -1,0 +1,37 @@
+{
+  "name": "kbrandes-scottcam-lajordan-2018",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mit6148/kbrandes-Scottcam-lajordan-2018.git"
+  },
+  "author": "Kathleen Brandes, Scott Cameron, Lily Jordan (aka Backend Bitchez)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mit6148/kbrandes-Scottcam-lajordan-2018/issues"
+  },
+  "homepage": "https://github.com/mit6148/kbrandes-Scottcam-lajordan-2018#readme",
+  "dependencies": {
+    "connect-ensure-login": "^0.1.1",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.1",
+    "express-session": "^1.15.6",
+    "mongoose": "^4.12.2",
+    "nodemailer": "^4.4.2",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-mitopenid": "^1.0.7",
+    "session": "^0.1.0",
+    "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.11"
+  }
+}
